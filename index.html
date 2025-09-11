@@ -5,89 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Power BI</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
     }
-    .header {
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 1rem 2rem;
-      color: white;
-      box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    
+    body, html {
+      height: 100%;
+      overflow: hidden;
     }
-    .header h1 { font-size: 1.8rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .header p { opacity: 0.9; font-size: 0.95rem; }
-    .dashboard-container {
-      flex: 1; margin: 1.5rem; background: white;
-      border-radius: 15px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      overflow: hidden; position: relative;
-    }
-    .iframe-wrapper { width: 100%; height: calc(100vh - 120px); }
-    iframe { width: 100%; height: 100%; border: none; }
-    .controls {
-      position: absolute; top: 10px; right: 15px;
-      display: flex; gap: 10px; z-index: 10;
-    }
-    .btn {
-      background: rgba(255, 255, 255, 0.9); border: none;
-      border-radius: 8px; padding: 8px 12px; cursor: pointer;
-      font-size: 0.9rem; font-weight: 500; color: #333;
-      transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-    .btn:hover { background: white; transform: translateY(-2px); }
-    .fullscreen-btn {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
+    
+    iframe { 
+      width: 100%; 
+      height: 100vh; 
+      border: none; 
     }
   </style>
 </head>
 <body>
-  <header class="header">
-    <h1>📊 Dashboard Power BI</h1>
-    <p>Visualização interativa de dados e análises</p>
-  </header>
-
-  <div class="dashboard-container" id="dashboard-container">
-    <div class="controls">
-      <button class="btn" onclick="refreshDashboard()">🔄 Atualizar</button>
-      <button class="btn fullscreen-btn" onclick="toggleFullscreen()">⛶ Tela Cheia</button>
-    </div>
-    
-    <div class="iframe-wrapper">
-      <iframe 
-        id="powerbi-iframe"
-        src="https://app.powerbi.com/reportEmbed?reportId=f72ae162-1589-4ddf-ac74-49f339e222f8&autoAuth=true&ctid=ea38e8bc-2dca-498c-baf2-f138a9968398&navContentPaneEnabled=false&filterPaneEnabled=false" 
-        allowfullscreen="true">
-      </iframe>
-    </div>
-  </div>
+  <iframe 
+    id="powerbi-iframe"
+    src="https://app.powerbi.com/reportEmbed?reportId=f72ae162-1589-4ddf-ac74-49f339e222f8&autoAuth=true&ctid=ea38e8bc-2dca-498c-baf2-f138a9968398&navContentPaneEnabled=false&filterPaneEnabled=false" 
+    allowfullscreen="true">
+  </iframe>
 
   <script>
-    // Função para atualizar manualmente
+    // Função para atualizar o dashboard
     function refreshDashboard() {
       const iframe = document.getElementById('powerbi-iframe');
-      iframe.src = iframe.src; // força reload
+      iframe.src = iframe.src;
     }
 
     // Atualização automática a cada 15 segundos
-    setInterval(refreshDashboard, 1800000);
-
-    // Controle de tela cheia
-    function toggleFullscreen() {
-      const container = document.getElementById('dashboard-container');
-      if (!document.fullscreenElement) {
-        container.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
+    setInterval(refreshDashboard, 15000);
   </script>
 </body>
 </html>
-
